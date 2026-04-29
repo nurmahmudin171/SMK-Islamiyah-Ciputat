@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMK Islamiyah Ciputat</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Inter', sans-serif; }
+    body { background: #050505; color: #ffffff; overflow-x: hidden; }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0a0a; }
+    ::-webkit-scrollbar-thumb { background: #262626; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #404040; }
+
+    @property --gradient-angle {
+      syntax: "<angle>";
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    @keyframes border-spin {
+      to { --gradient-angle: 360deg; }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .animate-fade-in-up { animation: fadeInUp 0.6s ease forwards; }
+    .animate-fade-in { animation: fadeIn 0.5s ease forwards; }
+
+    .shiny-btn {
+      position: relative;
+      background: #000;
+      border: 1px solid rgba(255,255,255,0.1);
+      overflow: hidden;
+      z-index: 1;
+    }
+    .shiny-btn::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      background: conic-gradient(from var(--gradient-angle), transparent 70%, #3b82f6);
+      z-index: -1;
+      border-radius: inherit;
+      animation: border-spin 2.5s linear infinite;
+    }
+    .shiny-btn::after {
+      content: '';
+      position: absolute;
+      inset: 1px;
+      background: #000;
+      border-radius: inherit;
+      z-index: -1;
+    }
+
+    .glass-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+    .glass-card:hover { border-color: rgba(59,130,246,0.3); transform: translateY(-2px); }
+
+    .text-gradient {
+      background: linear-gradient(to bottom, #ffffff, #a3a3a3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-tab {
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #a8a29e;
+    }
+    .nav-tab:hover, .nav-tab.active { color: #ffffff; background: rgba(255,255,255,0.05); }
+
+    .mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .mobile-menu.open { transform: translateX(0); }
+
+    .page-section { display: none; }
+    .page-section.active { display: block; animation: fadeIn 0.5s ease; }
+
+    .hero-glow {
+      position: absolute;
+      background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%);
+      filter: blur(80px);
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="fixed inset-0 z-0 pointer-events-none">
+    <div class="hero-glow w-[300px] h-[300px] top-[-100px] left-1/2 -translate-x-1/2"></div>
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 32px 32px;"></div>
+  </div>
+
+  <nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-black/80 backdrop-blur-xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('beranda')">
+          <div class="w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center">
+            <span class="iconify text-white text-xl" data-icon="mdi:school"></span>
+          </div>
+          <div>
+            <div class="text-sm font-bold leading-tight">SMK Islamiyah</div>
+            <div class="text-[10px] text-stone-500 uppercase tracking-widest">Ciputat</div>
+          </div>
+        </div>
+
+        <div class="hidden lg:flex items-center gap-1">
+          <div class="nav-tab active" onclick="switchTab('beranda')">Beranda</div>
+          <div class="nav-tab" onclick="switchTab('profil')">Profil</div>
+          <div class="nav-tab" onclick="switchTab('jurusan')">Jurusan</div>
+          <div class="nav-tab" onclick="switchTab('fasilitas')">Fasilitas</div>
+          <div class="nav-tab" onclick="switchTab('kontak')">Kontak</div>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <button class="hidden sm:block shiny-btn rounded-full px-5 py-2 text-xs font-semibold text-white">Daftar Sekarang</button>
+          <button class="lg:hidden p-2 text-stone-400" onclick="toggleMobile()">
+            <span class="iconify text-2xl" data-icon="mdi:menu"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div id="mobileMenu" class="mobile-menu fixed inset-0 z-[60] lg:hidden bg-black/95 backdrop-blur-2xl">
+    <div class="flex justify-end p-6">
+      <button class="p-2 text-stone-400" onclick="toggleMobile()">
+        <span class="iconify text-3xl" data-icon="mdi:close"></span>
+      </button>
+    </div>
+    <div class="flex flex-col items-center gap-6 pt-10 px-8">
+      <div class="text-2xl font-medium text-stone-400 hover:text-white" onclick="switchTab('beranda');toggleMobile()">Beranda</div>
+      <div class="text-2xl font-medium text-stone-400 hover:text-white" onclick="switchTab('profil');toggleMobile()">Profil</div>
+      <div class="text-2xl font-medium text-stone-400 hover:text-white" onclick="switchTab('jurusan');toggleMobile()">Jurusan</div>
+      <div class="text-2xl font-medium text-stone-400 hover:text-white" onclick="switchTab('fasilitas');toggleMobile()">Fasilitas</div>
+      <div class="text-2xl font-medium text-stone-400 hover:text-white" onclick="switchTab('kontak');toggleMobile()">Kontak</div>
+      <button class="shiny-btn rounded-full px-10 py-4 text-base font-semibold text-white mt-4 w-full">Daftar Sekarang</button>
+    </div>
+  </div>
+
+  <main class="relative z-10 pt-16">
+    
+    <section id="tab-beranda" class="page-section active">
+      <div class="min-h-[85vh] flex items-center px-4">
+        <div class="max-w-4xl mx-auto text-center">
+          <h1 class="text-4xl md:text-7xl font-bold tracking-tighter mb-6 animate-fade-in-up">
+            <span class="text-gradient">Masa Depan Cerah di</span><br>
+            <span class="text-blue-500">SMK Islamiyah</span>
+          </h1>
+          <p class="text-stone-400 text-sm md:text-lg max-w-xl mx-auto mb-10 leading-relaxed">
+            Mencetak tenaga kerja profesional dengan kompetensi industri yang berlandaskan nilai-nilai Islami.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <button class="shiny-btn rounded-full px-8 py-4 text-sm font-bold text-white">Eksplor Jurusan</button>
+            <button class="px-8 py-4 rounded-full border border-white/10 text-sm font-bold hover:bg-white/5 transition-all">Tentang Kami</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-jurusan" class="page-section py-20 px-4">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-5xl font-bold text-gradient mb-4">Program Keahlian</h2>
+          <p class="text-stone-500 text-sm">Pilih jurusan sesuai minat dan bakatmu untuk masa depan yang lebih baik.</p>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="glass-card p-6 rounded-2xl group">
+            <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-6 group-hover:bg-blue-500 transition-all">
+              <span class="iconify text-2xl text-blue-500 group-hover:text-white" data-icon="mdi:laptop-mac"></span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">TKJ</h3>
+            <p class="text-stone-400 text-sm leading-relaxed">Teknik Komputer & Jaringan. Fokus pada infrastruktur jaringan, perakitan komputer, dan administrasi server.</p>
+          </div>
+
+          <div class="glass-card p-6 rounded-2xl group">
+            <div class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center mb-6 group-hover:bg-purple-500 transition-all">
+              <span class="iconify text-2xl text-purple-500 group-hover:text-white" data-icon="mdi:palette"></span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">DKV</h3>
+            <p class="text-stone-400 text-sm leading-relaxed">Desain Komunikasi Visual. Mempelajari seni desain grafis, fotografi, videografi, dan periklanan digital.</p>
+          </div>
+
+          <div class="glass-card p-6 rounded-2xl group">
+            <div class="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center mb-6 group-hover:bg-orange-500 transition-all">
+              <span class="iconify text-2xl text-orange-500 group-hover:text-white" data-icon="mdi:silverware-fork-knife"></span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">BOGA</h3>
+            <p class="text-stone-400 text-sm leading-relaxed">Tata Boga. Mengembangkan keahlian dalam seni memasak, pengolahan makanan internasional, dan manajemen restoran.</p>
+          </div>
+
+          <div class="glass-card p-6 rounded-2xl group">
+            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-6 group-hover:bg-emerald-500 transition-all">
+              <span class="iconify text-2xl text-emerald-500 group-hover:text-white" data-icon="mdi:finance"></span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">AKL</h3>
+            <p class="text-stone-400 text-sm leading-relaxed">Akuntansi & Keuangan Lembaga. Profesional dalam pencatatan keuangan, perpajakan, dan audit keuangan.</p>
+          </div>
+
+          <div class="glass-card p-6 rounded-2xl group">
+            <div class="w-12 h-12 rounded-xl bg-yellow-500/10 flex items-center justify-center mb-6 group-hover:bg-yellow-500 transition-all">
+              <span class="iconify text-2xl text-yellow-500 group-hover:text-white" data-icon="mdi:cart"></span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">BDP</h3>
+            <p class="text-stone-400 text-sm leading-relaxed">Bisnis Daring & Pemasaran. Mempelajari strategi marketing modern, e-commerce, dan manajemen ritel.</p>
+          </div>
+
+          <div class="glass-card p-6 rounded-2xl group">
+            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center mb-6 group-hover:bg-cyan-500 transition-all">
+              <span class="iconify text-2xl text-cyan-500 group-hover:text-white" data-icon="mdi:office-building"></span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">OTKP</h3>
+            <p class="text-stone-400 text-sm leading-relaxed">Otomatisasi & Tata Kelola Perkantoran. Manajemen administrasi kantor modern dan korespondensi bisnis.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function toggleMobile() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.page-section').forEach(section => section.classList.remove('active'));
+      document.getElementById('tab-' + tabId).classList.add('active');
+      
+      document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+      event.target.classList.add('active');
+
+      window.scrollTo(0, 0);
+    }
+  </script>
+</body>
+</html>
