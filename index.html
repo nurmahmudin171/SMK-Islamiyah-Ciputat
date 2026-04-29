@@ -1,0 +1,1672 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMK Islamiyah Ciputat</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Inter', sans-serif; }
+    body { background: #050505; color: #ffffff; }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0a0a; }
+    ::-webkit-scrollbar-thumb { background: #262626; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #404040; }
+
+    @property --gradient-angle {
+      syntax: "<angle>";
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    @keyframes border-spin {
+      to { --gradient-angle: 360deg; }
+    }
+
+    @keyframes ping {
+      75%, 100% { transform: scale(2); opacity: 0; }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes countUp {
+      from { opacity: 0; transform: scale(0.5); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .animate-fade-in-up { animation: fadeInUp 0.6s ease forwards; }
+    .animate-fade-in { animation: fadeIn 0.5s ease forwards; }
+    .animate-slide-left { animation: slideInLeft 0.6s ease forwards; }
+    .animate-slide-right { animation: slideInRight 0.6s ease forwards; }
+    .animate-float { animation: float 3s ease-in-out infinite; }
+    .animate-count { animation: countUp 0.5s ease forwards; }
+
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-300 { animation-delay: 0.3s; }
+    .delay-400 { animation-delay: 0.4s; }
+    .delay-500 { animation-delay: 0.5s; }
+
+    .shiny-btn {
+      position: relative;
+      background: #000;
+      border: 1px solid rgba(255,255,255,0.1);
+      overflow: hidden;
+    }
+    .shiny-btn::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      background: conic-gradient(from var(--gradient-angle), transparent 70%, #3b82f6);
+      z-index: -1;
+      border-radius: inherit;
+      animation: border-spin 2.5s linear infinite;
+    }
+    .shiny-btn::after {
+      content: '';
+      position: absolute;
+      inset: 1px;
+      background: #000;
+      border-radius: inherit;
+      z-index: -1;
+    }
+
+    .glass-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+    .glass-card:hover {
+      border-color: rgba(59,130,246,0.3);
+    }
+
+    .text-gradient {
+      background: linear-gradient(to bottom, #ffffff, #a3a3a3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-tab {
+      position: relative;
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #a8a29e;
+      white-space: nowrap;
+    }
+    .nav-tab:hover { color: #ffffff; background: rgba(255,255,255,0.05); }
+    .nav-tab.active { color: #3b82f6; background: rgba(59,130,246,0.1); }
+
+    .sub-tab {
+      padding: 8px 20px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      color: #78716c;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .sub-tab:hover { color: #d6d3d1; }
+    .sub-tab.active { color: #3b82f6; border-bottom-color: #3b82f6; }
+
+    .page-section { display: none; opacity: 0; }
+    .page-section.active { display: block; animation: fadeIn 0.4s ease forwards; }
+
+    .sub-content { display: none; opacity: 0; }
+    .sub-content.active { display: block; animation: fadeInUp 0.5s ease forwards; }
+
+    .hero-glow {
+      position: absolute;
+      width: 600px;
+      height: 300px;
+      background: radial-gradient(ellipse, rgba(59,130,246,0.12) 0%, transparent 70%);
+      filter: blur(100px);
+      pointer-events: none;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      padding: 24px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      border-color: rgba(59,130,246,0.3);
+      transform: translateY(-4px);
+    }
+
+    .facility-card img {
+      transition: transform 0.5s ease;
+    }
+    .facility-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    .dropdown-menu {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(8px);
+      transition: all 0.2s ease;
+    }
+    .nav-parent:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .timeline-line {
+      position: absolute;
+      left: 20px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, #3b82f6, rgba(59,130,246,0.1));
+    }
+    .timeline-dot {
+      position: absolute;
+      left: 14px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #3b82f6;
+      border: 3px solid #050505;
+      z-index: 2;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: rgba(59,130,246,0.95);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 14px;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.4s ease;
+      z-index: 100;
+    }
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Background Glow -->
+  <div class="fixed inset-0 pointer-events-none z-0">
+    <div class="hero-glow" style="top:-100px;left:50%;transform:translateX(-50%);"></div>
+    <div class="hero-glow" style="bottom:-200px;right:-200px;background:radial-gradient(ellipse,rgba(59,130,246,0.06) 0%,transparent 70%);"></div>
+  </div>
+
+  <!-- Grid Pattern -->
+  <div class="fixed inset-0 pointer-events-none z-0" style="background-image:linear-gradient(to right,#80808005 1px,transparent 1px),linear-gradient(to bottom,#80808005 1px,transparent 1px);background-size:24px 24px;"></div>
+
+  <!-- NAVBAR -->
+  <nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/5" style="background:rgba(5,5,5,0.85);backdrop-filter:blur(24px);">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo -->
+        <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('beranda')">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center">
+            <span class="iconify text-white text-xl" data-icon="mdi:school"></span>
+          </div>
+          <div class="hidden sm:block">
+            <div class="text-sm font-semibold leading-tight">SMK Islamiyah</div>
+            <div class="text-[11px] text-stone-500">Ciputat</div>
+          </div>
+        </div>
+
+        <!-- Desktop Nav -->
+        <div class="hidden lg:flex items-center gap-1">
+          <div class="nav-tab active" onclick="switchTab('beranda')">Beranda</div>
+          
+          <div class="nav-parent relative">
+            <div class="nav-tab flex items-center gap-1" onclick="switchTab('profil')">
+              Profil <span class="iconify text-xs" data-icon="mdi:chevron-down"></span>
+            </div>
+            <div class="dropdown-menu absolute top-full left-0 mt-1 w-52 rounded-xl border border-white/5 py-2" style="background:rgba(10,10,10,0.95);backdrop-filter:blur(24px);">
+              <div class="px-3 py-2 text-xs text-stone-600 font-medium uppercase tracking-wider">Profil</div>
+              <div class="px-3 py-2 text-sm text-stone-400 hover:text-white hover:bg-white/5 cursor-pointer transition-colors" onclick="switchTab('profil','visi-misi')">Visi & Misi</div>
+              <div class="px-3 py-2 text-sm text-stone-400 hover:text-white hover:bg-white/5 cursor-pointer transition-colors" onclick="switchTab('profil','sejarah')">Sejarah</div>
+              <div class="px-3 py-2 text-sm text-stone-400 hover:text-white hover:bg-white/5 cursor-pointer transition-colors" onclick="switchTab('profil','struktur')">Struktur Organisasi</div>
+              <div class="px-3 py-2 text-sm text-stone-400 hover:text-white hover:bg-white/5 cursor-pointer transition-colors" onclick="switchTab('profil','guru')">Tenaga Pendidik</div>
+            </div>
+          </div>
+
+          <div class="nav-parent relative">
+            <div class="nav-tab flex items-center gap-1" onclick="switchTab('jurusan')">
+              Jurusan <span class="iconify text-xs" data-icon="mdi:chevron-down"></span>
+            </div>
+            <div class="dropdown-menu absolute top-full left-0 mt-1 w-52 rounded-xl border border-white/5 py-2" style="background:rgba(10,10,10,0.95);backdrop-filter:blur(24px);">
+              <div class="px-3 py-2 text-xs text-stone-600 font-medium uppercase tracking-wider">Jurusan</div>
+              <div class="px-3 py-2 text-sm text-stone-400 hover:text-white hover:bg-white/5 cursor-pointer transition-colors" onclick="switchTab('jurusan','tkj')">TKJ</div>
+              <div class="px-3 py-2 text-sm text-stone-400 hover:text-white hover:bg-white/5 cursor-pointer transition-colors" onclick="switchTab('jurusan','rpl')">Boga</div>
+              <div class="px-3 py-2 text-sm text-stone-400 hover:text-white hover:bg-white/5 cursor-pointer transition-colors" onclick="switchTab('jurusan','mm')">Multimedia</div>
+              <div class="px-3 py-2 text-sm text-stone-400 hover:text-white hover:bg-white/5 cursor-pointer transition-colors" onclick="switchTab('jurusan','akl')">AKL</div>
+            </div>
+          </div>
+
+          <div class="nav-parent relative">
+            <div class="nav-tab flex items-center gap-1" onclick="switchTab('fasilitas')">
+              Fasilitas <span class="iconify text-xs" data-icon="mdi:chevron-down"></span>
+            </div>
+            <div class="dropdown-menu absolute top-full left-0 mt-1 w-52 rounded-xl border border-white/5 py-2" style="background:rgba(10,10,10,0.95);backdrop-filter:blur(24px);">
+              <div class="px-3 py-2 text-xs text-stone-600 font-medium uppercase tracking-wider">Fasilitas</div>
+              <div class="px-3 py-2 text-sm text-stone-400 hover:text-white hover:bg-white/5 cursor-pointer transition-colors" onclick="switchTab('fasilitas','lab')">Lab Komputer</div>
+              <div class="px-3 py-2 text-sm text-stone-400 hover:text-white hover:bg-white/5 cursor-pointer transition-colors" onclick="switchTab('fasilitas','perpustakaan')">Perpustakaan</div>
+              <div class="px-3 py-2 text-sm text-stone-400 hover:text-white hover:bg-white/5 cursor-pointer transition-colors" onclick="switchTab('fasilitas','olahraga')">Lapangan Olahraga</div>
+              <div class="px-3 py-2 text-sm text-stone-400 hover:text-white hover:bg-white/5 cursor-pointer transition-colors" onclick="switchTab('fasilitas','mushola')">Mushola</div>
+            </div>
+          </div>
+
+          <div class="nav-parent relative">
+            <div class="nav-tab flex items-center gap-1" onclick="switchTab('informasi')">
+              Informasi <span class="iconify text-xs" data-icon="mdi:chevron-down"></span>
+            </div>
+            <div class="dropdown-menu absolute top-full left-0 mt-1 w-52 rounded-xl border border-white/5 py-2" style="background:rgba(10,10,10,0.95);backdrop-filter:blur(24px);">
+              <div class="px-3 py-2 text-xs text-stone-600 font-medium uppercase tracking-wider">Informasi</div>
+              <div class="px-3 py-2 text-sm text-stone-400 hover:text-white hover:bg-white/5 cursor-pointer transition-colors" onclick="switchTab('informasi','berita')">Berita</div>
+              <div class="px-3 py-2 text-sm text-stone-400 hover:text-white hover:bg-white/5 cursor-pointer transition-colors" onclick="switchTab('informasi','pengumuman')">Pengumuman</div>
+              <div class="px-3 py-2 text-sm text-stone-400 hover:text-white hover:bg-white/5 cursor-pointer transition-colors" onclick="switchTab('informasi','kalender')">Kalender Akademik</div>
+              <div class="px-3 py-2 text-sm text-stone-400 hover:text-white hover:bg-white/5 cursor-pointer transition-colors" onclick="switchTab('informasi','prestasi')">Prestasi</div>
+            </div>
+          </div>
+
+          <div class="nav-parent relative">
+            <div class="nav-tab flex items-center gap-1" onclick="switchTab('kontak')">
+              Kontak <span class="iconify text-xs" data-icon="mdi:chevron-down"></span>
+            </div>
+            <div class="dropdown-menu absolute top-full right-0 mt-1 w-52 rounded-xl border border-white/5 py-2" style="background:rgba(10,10,10,0.95);backdrop-filter:blur(24px);">
+              <div class="px-3 py-2 text-xs text-stone-600 font-medium uppercase tracking-wider">Kontak</div>
+              <div class="px-3 py-2 text-sm text-stone-400 hover:text-white hover:bg-white/5 cursor-pointer transition-colors" onclick="switchTab('kontak','alamat')">Alamat</div>
+              <div class="px-3 py-2 text-sm text-stone-400 hover:text-white hover:bg-white/5 cursor-pointer transition-colors" onclick="switchTab('kontak','telepon')">Telepon & Email</div>
+              <div class="px-3 py-2 text-sm text-stone-400 hover:text-white hover:bg-white/5 cursor-pointer transition-colors" onclick="switchTab('kontak','sosmed')">Media Sosial</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA Button -->
+        <div class="hidden lg:block">
+          <button class="shiny-btn rounded-full px-5 py-2 text-sm font-medium text-white" onclick="switchTab('kontak','alamat')">
+            Daftar Sekarang
+          </button>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button class="lg:hidden p-2 text-stone-400 hover:text-white transition-colors" onclick="toggleMobile()">
+          <span class="iconify text-2xl" data-icon="mdi:menu" id="menuIcon"></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="mobile-menu fixed inset-0 z-50 lg:hidden" style="background:rgba(5,5,5,0.98);backdrop-filter:blur(24px);">
+    <div class="flex justify-end p-4">
+      <button class="p-2 text-stone-400 hover:text-white" onclick="toggleMobile()">
+        <span class="iconify text-2xl" data-icon="mdi:close"></span>
+      </button>
+    </div>
+    <div class="flex flex-col items-center gap-2 pt-8 px-6 overflow-y-auto" style="max-height:calc(100vh - 80px);">
+      <div class="w-full text-left">
+        <div class="nav-tab w-full text-base py-3" onclick="switchTab('beranda');toggleMobile()">Beranda</div>
+        
+        <div class="text-xs text-stone-600 uppercase tracking-wider mt-4 mb-2 px-4">Profil</div>
+        <div class="nav-tab w-full text-sm py-2 pl-8" onclick="switchTab('profil','visi-misi');toggleMobile()">Visi & Misi</div>
+        <div class="nav-tab w-full text-sm py-2 pl-8" onclick="switchTab('profil','sejarah');toggleMobile()">Sejarah</div>
+        <div class="nav-tab w-full text-sm py-2 pl-8" onclick="switchTab('profil','struktur');toggleMobile()">Struktur Organisasi</div>
+        <div class="nav-tab w-full text-sm py-2 pl-8" onclick="switchTab('profil','guru');toggleMobile()">Tenaga Pendidik</div>
+
+        <div class="text-xs text-stone-600 uppercase tracking-wider mt-4 mb-2 px-4">Jurusan</div>
+        <div class="nav-tab w-full text-sm py-2 pl-8" onclick="switchTab('jurusan','tkj');toggleMobile()">TKJ</div>
+        <div class="nav-tab w-full text-sm py-2 pl-8" onclick="switchTab('jurusan','boga');toggleMobile()">Boga</div>
+        <div class="nav-tab w-full text-sm py-2 pl-8" onclick="switchTab('jurusan','mm');toggleMobile()">Multimedia</div>
+        <div class="nav-tab w-full text-sm py-2 pl-8" onclick="switchTab('jurusan','akl');toggleMobile()">AKL</div>
+00
+        <div class="text-xs text-stone-600 uppercase tracking-wider mt-4 mb-2 px-4">Fasilitas</div>
+        <div class="nav-tab w-full text-sm py-2 pl-8" onclick="switchTab('fasilitas','lab');toggleMobile()">Lab Komputer</div>
+        <div class="nav-tab w-full text-sm py-2 pl-8" onclick="switchTab('fasilitas','perpustakaan');toggleMobile()">Perpustakaan</div>
+        <div class="nav-tab w-full text-sm py-2 pl-8" onclick="switchTab('fasilitas','olahraga');toggleMobile()">Lapangan Olahraga</div>
+        <div class="nav-tab w-full text-sm py-2 pl-8" onclick="switchTab('fasilitas','mushola');toggleMobile()">Mushola</div>
+
+        <div class="text-xs text-stone-600 uppercase tracking-wider mt-4 mb-2 px-4">Informasi</div>
+        <div class="nav-tab w-full text-sm py-2 pl-8" onclick="switchTab('informasi','berita');toggleMobile()">Berita</div>
+        <div class="nav-tab w-full text-sm py-2 pl-8" onclick="switchTab('informasi','pengumuman');toggleMobile()">Pengumuman</div>
+        <div class="nav-tab w-full text-sm py-2 pl-8" onclick="switchTab('informasi','kalender');toggleMobile()">Kalender Akademik</div>
+        <div class="nav-tab w-full text-sm py-2 pl-8" onclick="switchTab('informasi','prestasi');toggleMobile()">Prestasi</div>
+
+        <div class="text-xs text-stone-600 uppercase tracking-wider mt-4 mb-2 px-4">Kontak</div>
+        <div class="nav-tab w-full text-sm py-2 pl-8" onclick="switchTab('kontak','alamat');toggleMobile()">Alamat</div>
+        <div class="nav-tab w-full text-sm py-2 pl-8" onclick="switchTab('kontak','telepon');toggleMobile()">Telepon & Email</div>
+        <div class="nav-tab w-full text-sm py-2 pl-8" onclick="switchTab('kontak','sosmed');toggleMobile()">Media Sosial</div>
+
+        <div class="mt-6">
+          <button class="shiny-btn rounded-full px-8 py-3 text-sm font-medium text-white w-full" onclick="switchTab('kontak','alamat');toggleMobile()">Daftar Sekarang</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main class="relative z-10 pt-16">
+
+    <!-- ==================== BERANDA ==================== -->
+    <section id="tab-beranda" class="page-section active">
+      
+      <!-- Hero -->
+      <div class="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0">
+          <img src="https://picsum.photos/seed/school-islamic/1920/1080.jpg" alt="School" class="w-full h-full object-cover opacity-15" style="filter:grayscale(1);mix-blend-mode:luminosity;">
+          <div class="absolute inset-0 bg-gradient-to-b from-[#050505] via-transparent to-[#050505]"></div>
+        </div>
+        <div class="relative z-10 text-center px-4 max-w-5xl mx-auto">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 mb-8 animate-fade-in" style="opacity:0;">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" style="animation:ping 1s cubic-bezier(0,0,0.2,1) infinite;"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+            </span>
+            <span class="text-xs font-medium text-stone-400">Pendaftaran Tahun Ajaran 2025/2026 Dibuka</span>
+          </div>
+          <h1 class="text-4xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-[1.1] mb-6 animate-fade-in-up" style="opacity:0;">
+            <span class="text-gradient">SMK Islamiyah</span><br>
+            <span class="text-blue-500">Ciputat</span>
+          </h1>
+          <p class="text-base md:text-lg text-stone-400 max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-in-up delay-200" style="opacity:0;">
+            Mencetak generasi unggul yang berilmu, berakhlak mulia, dan berdaya saing tinggi dalam bidang teknologi dan bisnis.
+          </p>
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up delay-300" style="opacity:0;">
+            <button class="shiny-btn rounded-full px-8 py-3.5 text-sm font-medium text-white" onclick="switchTab('kontak','alamat')">
+              Daftar Sekarang
+              <span class="iconify inline-block ml-1" data-icon="mdi:arrow-right"></span>
+            </button>
+            <button class="rounded-full px-8 py-3.5 text-sm font-medium text-stone-300 border border-white/10 hover:border-white/20 hover:text-white transition-all" onclick="switchTab('profil','visi-misi')">
+              Kenali Kami
+            </button>
+          </div>
+        </div>
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+          <span class="iconify text-2xl text-stone-600" data-icon="mdi:chevron-down"></span>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="max-w-7xl mx-auto px-4 md:px-6 -mt-16 relative z-20">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="stat-card rounded-xl">
+            <div class="text-3xl md:text-4xl font-semibold text-blue-500 mb-1" id="stat1">0</div>
+            <div class="text-xs text-stone-500">Siswa Aktif</div>
+          </div>
+          <div class="stat-card rounded-xl">
+            <div class="text-3xl md:text-4xl font-semibold text-blue-500 mb-1" id="stat2">0</div>
+            <div class="text-xs text-stone-500">Tenaga Pendidik</div>
+          </div>
+          <div class="stat-card rounded-xl">
+            <div class="text-3xl md:text-4xl font-semibold text-blue-500 mb-1" id="stat3">0</div>
+            <div class="text-xs text-stone-500">Program Keahlian</div>
+          </div>
+          <div class="stat-card rounded-xl">
+            <div class="text-3xl md:text-4xl font-semibold text-blue-500 mb-1" id="stat4">0%</div>
+            <div class="text-xs text-stone-500">Tingkat Kelulusan</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Why Us -->
+      <div class="max-w-7xl mx-auto px-4 md:px-6 py-24">
+        <div class="text-center mb-16">
+          <div class="text-xs font-medium uppercase tracking-widest text-blue-500 mb-4">Mengapa Kami</div>
+          <h2 class="text-2xl md:text-4xl font-semibold tracking-tight text-gradient">Keunggulan SMK Islamiyah Ciputat</h2>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="glass-card rounded-xl p-6 group">
+            <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-4 group-hover:bg-blue-500/20 transition-colors">
+              <span class="iconify text-2xl text-blue-500" data-icon="mdi:book-open-variant"></span>
+            </div>
+            <h3 class="text-base font-medium tracking-tight mb-2">Kurikulum Terkini</h3>
+            <p class="text-sm text-stone-400 leading-relaxed">Menggunakan kurikulum merdeka yang adaptif dengan kebutuhan industri terkini dan perkembangan teknologi.</p>
+          </div>
+          <div class="glass-card rounded-xl p-6 group">
+            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center mb-4 group-hover:bg-cyan-500/20 transition-colors">
+              <span class="iconify text-2xl text-cyan-400" data-icon="mdi:laptop"></span>
+            </div>
+            <h3 class="text-base font-medium tracking-tight mb-2">Fasilitas Modern</h3>
+            <p class="text-sm text-stone-400 leading-relaxed">Lab komputer, perpustakaan digital, dan fasilitas pendukung lainnya yang lengkap dan terawat.</p>
+          </div>
+          <div class="glass-card rounded-xl p-6 group">
+            <div class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center mb-4 group-hover:bg-purple-500/20 transition-colors">
+              <span class="iconify text-2xl text-purple-400" data-icon="mdi:account-group"></span>
+            </div>
+            <h3 class="text-base font-medium tracking-tight mb-2">Guru Berpengalaman</h3>
+            <p class="text-sm text-stone-400 leading-relaxed">Tenaga pendidik profesional dan bersertifikat dengan pengalaman industri dan pendidikan yang mumpuni.</p>
+          </div>
+          <div class="glass-card rounded-xl p-6 group">
+            <div class="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center mb-4 group-hover:bg-green-500/20 transition-colors">
+              <span class="iconify text-2xl text-green-400" data-icon="mdi:handshake"></span>
+            </div>
+            <h3 class="text-base font-medium tracking-tight mb-2">Kerjasama Industri</h3>
+            <p class="text-sm text-stone-400 leading-relaxed">Bermitra dengan berbagai perusahaan ternama untuk magang, sertifikasi, dan penyaluran kerja.</p>
+          </div>
+          <div class="glass-card rounded-xl p-6 group">
+            <div class="w-12 h-12 rounded-xl bg-yellow-500/10 flex items-center justify-center mb-4 group-hover:bg-yellow-500/20 transition-colors">
+              <span class="iconify text-2xl text-yellow-400" data-icon="mdi:trophy"></span>
+            </div>
+            <h3 class="text-base font-medium tracking-tight mb-2">Berprestasi</h3>
+            <p class="text-sm text-stone-400 leading-relaxed">Meraih berbagai prestasi di tingkat kota, provinsi, dan nasional dalam kompetisi akademik dan skill.</p>
+          </div>
+          <div class="glass-card rounded-xl p-6 group">
+            <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center mb-4 group-hover:bg-red-500/20 transition-colors">
+              <span class="iconify text-2xl text-red-400" data-icon="mdi:mosque"></span>
+            </div>
+            <h3 class="text-base font-medium tracking-tight mb-2">Nuansa Islami</h3>
+            <p class="text-sm text-stone-400 leading-relaxed">Pendidikan karakter berbasis islami dengan program tahfidz, sholat berjamaah, dan kegiatan keagamaan.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="max-w-7xl mx-auto px-4 md:px-6 pb-24">
+        <div class="glass-card rounded-2xl p-8 md:p-12 text-center relative overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-blue-500/5"></div>
+          <div class="relative z-10">
+            <h2 class="text-2xl md:text-3xl font-semibold tracking-tight mb-4 text-gradient">Siap Bergabung Bersama Kami?</h2>
+            <p class="text-stone-400 mb-8 max-w-lg mx-auto text-sm leading-relaxed">Wujudkan masa depan cemerlang dengan pendidikan berkualitas di SMK Islamiyah Ciputat.</p>
+            <button class="shiny-btn rounded-full px-8 py-3.5 text-sm font-medium text-white" onclick="switchTab('kontak','alamat')">
+              Mulai Pendaftaran
+              <span class="iconify inline-block ml-1" data-icon="mdi:arrow-right"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PROFIL ==================== -->
+    <section id="tab-profil" class="page-section">
+      <div class="pt-24 pb-8 max-w-7xl mx-auto px-4 md:px-6">
+        <div class="text-xs font-medium uppercase tracking-widest text-blue-500 mb-2">Profil Sekolah</div>
+        <h1 class="text-3xl md:text-5xl font-semibold tracking-tight text-gradient mb-8">Profil</h1>
+        <div class="flex gap-2 border-b border-white/5 overflow-x-auto pb-px">
+          <div class="sub-tab active" onclick="switchSub('profil','visi-misi')">Visi & Misi</div>
+          <div class="sub-tab" onclick="switchSub('profil','sejarah')">Sejarah</div>
+          <div class="sub-tab" onclick="switchSub('profil','struktur')">Struktur Organisasi</div>
+          <div class="sub-tab" onclick="switchSub('profil','guru')">Tenaga Pendidik</div>
+        </div>
+      </div>
+
+      <!-- Visi Misi -->
+      <div id="sub-profil-visi-misi" class="sub-content active max-w-7xl mx-auto px-4 md:px-6 pb-24">
+        <div class="grid lg:grid-cols-2 gap-8 mt-8">
+          <div class="glass-card rounded-xl p-8">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                <span class="iconify text-xl text-blue-500" data-icon="mdi:eye"></span>
+              </div>
+              <h3 class="text-xl font-medium">Visi</h3>
+            </div>
+            <p class="text-stone-300 leading-relaxed text-lg italic border-l-2 border-blue-500 pl-4">
+              "Terwujudnya lembaga pendidikan kejuruan yang unggul, berakhlak mulia, berwawasan global, dan berlandaskan nilai-nilai Islam."
+            </p>
+          </div>
+          <div class="glass-card rounded-xl p-8">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center">
+                <span class="iconify text-xl text-indigo-400" data-icon="mdi:target"></span>
+              </div>
+              <h3 class="text-xl font-medium">Misi</h3>
+            </div>
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3 text-sm text-stone-400 leading-relaxed">
+                <span class="iconify text-blue-500 mt-1 shrink-0" data-icon="mdi:check-circle"></span>
+                Menyelenggarakan pendidikan berbasis kompetensi sesuai kebutuhan dunia kerja
+              </li>
+              <li class="flex items-start gap-3 text-sm text-stone-400 leading-relaxed">
+                <span class="iconify text-blue-500 mt-1 shrink-0" data-icon="mdi:check-circle"></span>
+                Membina akhlak mulia dan karakter Islami melalui pembiasaan dan keteladanan
+              </li>
+              <li class="flex items-start gap-3 text-sm text-stone-400 leading-relaxed">
+                <span class="iconify text-blue-500 mt-1 shrink-0" data-icon="mdi:check-circle"></span>
+                Mengembangkan potensi siswa melalui kegiatan ekstrakurikuler dan kompetisi
+              </li>
+              <li class="flex items-start gap-3 text-sm text-stone-400 leading-relaxed">
+                <span class="iconify text-blue-500 mt-1 shrink-0" data-icon="mdi:check-circle"></span>
+                Menjalin kerjasama dengan dunia usaha dan dunia industri (DU/DI)
+              </li>
+              <li class="flex items-start gap-3 text-sm text-stone-400 leading-relaxed">
+                <span class="iconify text-blue-500 mt-1 shrink-0" data-icon="mdi:check-circle"></span>
+                Menciptakan lingkungan sekolah yang kondusif, nyaman, dan Islami
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="glass-card rounded-xl p-8 mt-8">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center">
+              <span class="iconify text-xl text-green-400" data-icon="mdi:star"></span>
+            </div>
+            <h3 class="text-xl font-medium">Tujuan</h3>
+          </div>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="flex items-start gap-3 text-sm text-stone-400 leading-relaxed">
+              <span class="text-blue-500 font-semibold">01</span>
+              Menghasilkan lulusan yang kompeten dan siap kerja
+            </div>
+            <div class="flex items-start gap-3 text-sm text-stone-400 leading-relaxed">
+              <span class="text-blue-500 font-semibold">02</span>
+              Menyiapkan lulusan yang mampu berwirausaha mandiri
+            </div>
+            <div class="flex items-start gap-3 text-sm text-stone-400 leading-relaxed">
+              <span class="text-blue-500 font-semibold">03</span>
+              Mencetak generasi yang hafal Al-Quran minimal 2 juz
+            </div>
+            <div class="flex items-start gap-3 text-sm text-stone-400 leading-relaxed">
+              <span class="text-blue-500 font-semibold">04</span>
+              Memiliki sertifikasi kompetensi sesuai bidang keahlian
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sejarah -->
+      <div id="sub-profil-sejarah" class="sub-content max-w-7xl mx-auto px-4 md:px-6 pb-24">
+        <div class="mt-8 relative pl-12">
+          <div class="timeline-line"></div>
+          
+          <div class="relative mb-12">
+            <div class="timeline-dot" style="top:4px;"></div>
+            <div class="glass-card rounded-xl p-6">
+              <div class="text-xs font-medium text-blue-500 mb-2">2005</div>
+              <h3 class="text-lg font-medium mb-2">Pendirian Sekolah</h3>
+              <p class="text-sm text-stone-400 leading-relaxed">SMK Islamiyah Ciputat didirikan oleh Yayasan Pendidikan Islamiyah Ciputat sebagai wujud kepedulian terhadap pendidikan kejuruan berbasis Islam di wilayah Tangerang Selatan.</p>
+            </div>
+          </div>
+
+          <div class="relative mb-12">
+            <div class="timeline-dot" style="top:4px;"></div>
+            <div class="glass-card rounded-xl p-6">
+              <div class="text-xs font-medium text-blue-500 mb-2">2008</div>
+              <h3 class="text-lg font-medium mb-2">Akreditasi Pertama</h3>
+              <p class="text-sm text-stone-400 leading-relaxed">Meraih akreditasi B dari BAN-SM untuk pertama kalinya, membuktikan komitmen terhadap standar mutu pendidikan nasional.</p>
+            </div>
+          </div>
+
+          <div class="relative mb-12">
+            <div class="timeline-dot" style="top:4px;"></div>
+            <div class="glass-card rounded-xl p-6">
+              <div class="text-xs font-medium text-blue-500 mb-2">2012</div>
+              <h3 class="text-lg font-medium mb-2">Penambahan Jurusan</h3>
+              <p class="text-sm text-stone-400 leading-relaxed">Membuka program keahlian Rekayasa Perangkat Lunak (RPL) dan Multimedia (MM) untuk memenuhi kebutuhan industri kreatif.</p>
+            </div>
+          </div>
+
+          <div class="relative mb-12">
+            <div class="timeline-dot" style="top:4px;"></div>
+            <div class="glass-card rounded-xl p-6">
+              <div class="text-xs font-medium text-blue-500 mb-2">2018</div>
+              <h3 class="text-lg font-medium mb-2">Naik Akreditasi A</h3>
+              <p class="text-sm text-stone-400 leading-relaxed">Berhasil meningkatkan akreditasi menjadi A, sekaligus meraih penghargaan sebagai SMK berwawasan lingkungan tingkat Kota Tangerang Selatan.</p>
+            </div>
+          </div>
+
+          <div class="relative">
+            <div class="timeline-dot" style="top:4px;"></div>
+            <div class="glass-card rounded-xl p-6 border-blue-500/20">
+              <div class="text-xs font-medium text-blue-500 mb-2">2024 - Sekarang</div>
+              <h3 class="text-lg font-medium mb-2">Era Digital & Kurikulum Merdeka</h3>
+              <p class="text-sm text-stone-400 leading-relaxed">Mengimplementasikan kurikulum merdeka secara penuh, memperkuat program digital literacy, dan membuka jurusan AKL (Akuntansi & Keuangan Lembaga).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Struktur -->
+      <div id="sub-profil-struktur" class="sub-content max-w-7xl mx-auto px-4 md:px-6 pb-24">
+        <div class="mt-8">
+          <div class="glass-card rounded-xl p-8 text-center mb-8">
+            <div class="w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 mx-auto mb-4 flex items-center justify-center">
+              <span class="iconify text-3xl text-white" data-icon="mdi:account-tie"></span>
+            </div>
+            <h3 class="text-lg font-medium">Kepala Sekolah</h3>
+            <p class="text-sm text-stone-400 mt-1">Dr. Dian Rostikawati, SE. MM, M.Pd.I</p>
+            <div class="mt-3 inline-flex items-center gap-1 px-3 py-1 rounded-full bg-blue-500/10 text-blue-500 text-xs font-medium">
+              <span class="iconify" data-icon="mdi:shield-check"></span> Pimpinan Tertinggi
+            </div>
+          </div>
+          <div class="grid md:grid-cols-3 gap-6 mb-8">
+            <div class="glass-card rounded-xl p-6 text-center">
+              <div class="w-14 h-14 rounded-full bg-blue-500/10 mx-auto mb-3 flex items-center justify-center">
+                <span class="iconify text-2xl text-blue-400" data-icon="mdi:account-tie-outline"></span>
+              </div>
+              <h4 class="text-sm font-medium">Wakil Kepala Sekolah</h4>
+              <p class="text-xs text-stone-500 mt-1">Kurikulum</p>
+              <p class="text-xs text-stone-400 mt-2">Hj. Siti Nurhaliza, S.Pd</p>
+            </div>
+            <div class="glass-card rounded-xl p-6 text-center">
+              <div class="w-14 h-14 rounded-full bg-indigo-500/10 mx-auto mb-3 flex items-center justify-center">
+                <span class="iconify text-2xl text-indigo-400" data-icon="mdi:account-tie-outline"></span>
+              </div>
+              <h4 class="text-sm font-medium">Wakil Kepala Sekolah</h4>
+              <p class="text-xs text-stone-500 mt-1">Kesiswaan</p>
+              <p class="text-xs text-stone-400 mt-2">Ust. Budi Santoso, S.Pd</p>
+            </div>
+            <div class="glass-card rounded-xl p-6 text-center">
+              <div class="w-14 h-14 rounded-full bg-cyan-500/10 mx-auto mb-3 flex items-center justify-center">
+                <span class="iconify text-2xl text-cyan-400" data-icon="mdi:account-tie-outline"></span>
+              </div>
+              <h4 class="text-sm font-medium">Wakil Kepala Sekolah</h4>
+              <p class="text-xs text-stone-500 mt-1">Humas & Kerjasama</p>
+              <p class="text-xs text-stone-400 mt-2">Ir. Wahyu Hidayat, M.T</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="glass-card rounded-xl p-4 text-center">
+              <span class="iconify text-xl text-stone-500 mx-auto mb-2" data-icon="mdi:folder-account"></span>
+              <div class="text-xs font-medium">Kaprog TKJ</div>
+              <div class="text-[11px] text-stone-500 mt-1">Achmadi</div>
+            </div>
+            <div class="glass-card rounded-xl p-4 text-center">
+              <span class="iconify text-xl text-stone-500 mx-auto mb-2" data-icon="mdi:folder-account"></span>
+              <div class="text-xs font-medium">Kaprog RPL</div>
+              <div class="text-[11px] text-stone-500 mt-1">Devi Rahmawati, S.Kom</div>
+            </div>
+            <div class="glass-card rounded-xl p-4 text-center">
+              <span class="iconify text-xl text-stone-500 mx-auto mb-2" data-icon="mdi:folder-account"></span>
+              <div class="text-xs font-medium">Kaprog MM</div>
+              <div class="text-[11px] text-stone-500 mt-1">Rizki Fadillah, S.Ds</div>
+            </div>
+            <div class="glass-card rounded-xl p-4 text-center">
+              <span class="iconify text-xl text-stone-500 mx-auto mb-2" data-icon="mdi:folder-account"></span>
+              <div class="text-xs font-medium">Kaprog AKL</div>
+              <div class="text-[11px] text-stone-500 mt-1">Nur Aini, S.E</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Guru -->
+      <div id="sub-profil-guru" class="sub-content max-w-7xl mx-auto px-4 md:px-6 pb-24">
+        <div class="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="glass-card rounded-xl p-6 flex gap-4 items-start">
+            <img src="https://picsum.photos/seed/teacher1/100/100.jpg" class="w-14 h-14 rounded-full object-cover shrink-0" alt="Guru">
+            <div>
+              <h4 class="text-sm font-medium">Dr. Dian Rostikawati, SE. MM</h4>
+              <p class="text-xs text-blue-500 mt-0.5">Kepala Sekolah</p>
+              <p class="text-xs text-stone-500 mt-2">Pengajar PAI | Sertifikasi Guru | 20 tahun mengajar</p>
+            </div>
+          </div>
+          <div class="glass-card rounded-xl p-6 flex gap-4 items-start">
+            <img src="https://picsum.photos/seed/teacher2/100/100.jpg" class="w-14 h-14 rounded-full object-cover shrink-0" alt="Guru">
+            <div>
+              <h4 class="text-sm font-medium">Achmadi</h4>
+              <p class="text-xs text-blue-500 mt-0.5">Kaprog TKJ</p>
+              <p class="text-xs text-stone-500 mt-2">Mikrotik Certified | Cisco CCNA | 12 tahun mengajar</p>
+            </div>
+          </div>
+          <div class="glass-card rounded-xl p-6 flex gap-4 items-start">
+            <img src="https://picsum.photos/seed/teacher3/100/100.jpg" class="w-14 h-14 rounded-full object-cover shrink-0" alt="Guru">
+            <div>
+              <h4 class="text-sm font-medium">Devi Rahmawati, S.Kom</h4>
+              <p class="text-xs text-blue-500 mt-0.5">Kaprog RPL</p>
+              <p class="text-xs text-stone-500 mt-2">Oracle Certified | 10 tahun mengajar</p>
+            </div>
+          </div>
+          <div class="glass-card rounded-xl p-6 flex gap-4 items-start">
+            <img src="https://picsum.photos/seed/teacher4/100/100.jpg" class="w-14 h-14 rounded-full object-cover shrink-0" alt="Guru">
+            <div>
+              <h4 class="text-sm font-medium">Rizki Fadillah, S.Ds</h4>
+              <p class="text-xs text-blue-500 mt-0.5">Kaprog Multimedia</p>
+              <p class="text-xs text-stone-500 mt-2">Adobe Certified | 8 tahun mengajar</p>
+            </div>
+          </div>
+          <div class="glass-card rounded-xl p-6 flex gap-4 items-start">
+            <img src="https://picsum.photos/seed/teacher5/100/100.jpg" class="w-14 h-14 rounded-full object-cover shrink-0" alt="Guru">
+            <div>
+              <h4 class="text-sm font-medium">Nur Aini, S.E</h4>
+              <p class="text-xs text-blue-500 mt-0.5">Kaprog AKL</p>
+              <p class="text-xs text-stone-500 mt-2">Sertifikasi Akuntansi | 9 tahun mengajar</p>
+            </div>
+          </div>
+          <div class="glass-card rounded-xl p-6 flex gap-4 items-start">
+            <img src="https://picsum.photos/seed/teacher6/100/100.jpg" class="w-14 h-14 rounded-full object-cover shrink-0" alt="Guru">
+            <div>
+              <h4 class="text-sm font-medium">Ust. Budi Santoso, S.Pd</h4>
+              <p class="text-xs text-blue-500 mt-0.5">Wakil Kesiswaan</p>
+              <p class="text-xs text-stone-500 mt-2">Pengajar Matematika | Hafidz 10 Juz | 15 tahun mengajar</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== JURUSAN ==================== -->
+    <section id="tab-jurusan" class="page-section">
+      <div class="pt-24 pb-8 max-w-7xl mx-auto px-4 md:px-6">
+        <div class="text-xs font-medium uppercase tracking-widest text-blue-500 mb-2">Program Keahlian</div>
+        <h1 class="text-3xl md:text-5xl font-semibold tracking-tight text-gradient mb-8">Jurusan</h1>
+        <div class="flex gap-2 border-b border-white/5 overflow-x-auto pb-px">
+          <div class="sub-tab active" onclick="switchSub('jurusan','tkj')">TKJ</div>
+          <div class="sub-tab" onclick="switchSub('jurusan','rpl')">Boga</div>
+          <div class="sub-tab" onclick="switchSub('jurusan','mm')">Multimedia</div>
+          <div class="sub-tab" onclick="switchSub('jurusan','akl')">AKL</div>
+        </div>
+      </div>
+
+      <!-- TKJ -->
+      <div id="sub-jurusan-tkj" class="sub-content active max-w-7xl mx-auto px-4 md:px-6 pb-24">
+        <div class="mt-8 grid lg:grid-cols-2 gap-8">
+          <div class="facility-card rounded-xl overflow-hidden border border-white/5">
+            <img src="tkj.jpeg" class="w-full h-64 object-cover" alt="TKJ">
+          </div>
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-medium mb-4">
+              <span class="iconify" data-icon="mdi:lan"></span> Teknik Komputer & Jaringan
+            </div>
+            <h2 class="text-2xl font-semibold tracking-tight mb-4">TKJ - Teknik Komputer dan Jaringan</h2>
+            <p class="text-sm text-stone-400 leading-relaxed mb-6">Program keahlian yang mempersiapkan siswa menjadi tenaga ahli dalam bidang instalasi, konfigurasi, dan pemeliharaan jaringan komputer serta sistem server.</p>
+            <h4 class="text-sm font-medium mb-3 text-stone-300">Kompetensi yang Dipelajari:</h4>
+            <div class="space-y-2 mb-6">
+              <div class="flex items-center gap-2 text-sm text-stone-400"><span class="iconify text-blue-500" data-icon="mdi:check"></span> Instalasi jaringan LAN/WAN</div>
+              <div class="flex items-center gap-2 text-sm text-stone-400"><span class="iconify text-blue-500" data-icon="mdi:check"></span> Konfigurasi router & switch (Mikrotik, Cisco)</div>
+              <div class="flex items-center gap-2 text-sm text-stone-400"><span class="iconify text-blue-500" data-icon="mdi:check"></span> Administrasi server Linux & Windows</div>
+              <div class="flex items-center gap-2 text-sm text-stone-400"><span class="iconify text-blue-500" data-icon="mdi:check"></span> Keamanan jaringan & firewall</div>
+              <div class="flex items-center gap-2 text-sm text-stone-400"><span class="iconify text-blue-500" data-icon="mdi:check"></span> Troubleshooting jaringan</div>
+            </div>
+            <h4 class="text-sm font-medium mb-3 text-stone-300">Prospek Karir:</h4>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1 rounded-full bg-white/5 text-xs text-stone-400 border border-white/5">Network Engineer</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 text-xs text-stone-400 border border-white/5">System Administrator</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 text-xs text-stone-400 border border-white/5">IT Support</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 text-xs text-stone-400 border border-white/5">NoC Engineer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RPL -->
+      <div id="sub-jurusan-rpl" class="sub-content max-w-7xl mx-auto px-4 md:px-6 pb-24">
+        <div class="mt-8 grid lg:grid-cols-2 gap-8">
+          <div class="facility-card rounded-xl overflow-hidden border border-white/5">
+            <img src="resto.jpeg" class="w-full h-64 object-cover" alt="RPL">
+          </div>
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-medium mb-4">
+              <span class="iconify" data-icon="mdi:code-braces"></span> Rekayasa Perangkat Lunak
+            </div>
+            <h2 class="text-2xl font-semibold tracking-tight mb-4">RPL - Rekayasa Perangkat Lunak</h2>
+            <p class="text-sm text-stone-400 leading-relaxed mb-6">Program keahlian yang mempersiapkan siswa mampu mengembangkan perangkat lunak berbasis web, desktop, dan mobile menggunakan teknologi terkini.</p>
+            <h4 class="text-sm font-medium mb-3 text-stone-300">Kompetensi yang Dipelajari:</h4>
+            <div class="space-y-2 mb-6">
+              <div class="flex items-center gap-2 text-sm text-stone-400"><span class="iconify text-blue-500" data-icon="mdi:check"></span> Pemrograman Java, PHP, Python</div>
+              <div class="flex items-center gap-2 text-sm text-stone-400"><span class="iconify text-blue-500" data-icon="mdi:check"></span> Pengembangan web (HTML, CSS, JS, React)</div>
+              <div class="flex items-center gap-2 text-sm text-stone-400"><span class="iconify text-blue-500" data-icon="mdi:check"></span> Pengembangan aplikasi mobile (Flutter)</div>
+              <div class="flex items-center gap-2 text-sm text-stone-400"><span class="iconify text-blue-500" data-icon="mdi:check"></span> Basis data MySQL & PostgreSQL</div>
+              <div class="flex items-center gap-2 text-sm text-stone-400"><span class="iconify text-blue-500" data-icon="mdi:check"></span> Software Engineering & DevOps dasar</div>
+            </div>
+            <h4 class="text-sm font-medium mb-3 text-stone-300">Prospek Karir:</h4>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1 rounded-full bg-white/5 text-xs text-stone-400 border border-white/5">Web Developer</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 text-xs text-stone-400 border border-white/5">Mobile Developer</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 text-xs text-stone-400 border border-white/5">Backend Developer</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 text-xs text-stone-400 border border-white/5">Database Admin</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Multimedia -->
+      <div id="sub-jurusan-mm" class="sub-content max-w-7xl mx-auto px-4 md:px-6 pb-24">
+        <div class="mt-8 grid lg:grid-cols-2 gap-8">
+          <div class="facility-card rounded-xl overflow-hidden border border-white/5">
+            <img src="labmm.jpeg" class="w-full h-64 object-cover" alt="MM">
+          </div>
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/10 text-violet-400 text-xs font-medium mb-4">
+              <span class="iconify" data-icon="mdi:palette"></span> Multimedia
+            </div>
+            <h2 class="text-2xl font-semibold tracking-tight mb-4">MM - Multimedia</h2>
+            <p class="text-sm text-stone-400 leading-relaxed mb-6">Program keahlian yang mempersiapkan siswa kreatif dalam bidang desain grafis, animasi, videografi, dan produksi konten digital.</p>
+            <h4 class="text-sm font-medium mb-3 text-stone-300">Kompetensi yang Dipelajari:</h4>
+            <div class="space-y-2 mb-6">
+              <div class="flex items-center gap-2 text-sm text-stone-400"><span class="iconify text-blue-500" data-icon="mdi:check"></span> Desain grafis (Photoshop, Illustrator)</div>
+              <div class="flex items-center gap-2 text-sm text-stone-400"><span class="iconify text-blue-500" data-icon="mdi:check"></span> Animasi 2D & 3D (After Effects, Blender)</div>
+              <div class="flex items-center gap-2 text-sm text-stone-400"><span class="iconify text-blue-500" data-icon="mdi:check"></span> Videografi & editing (Premiere Pro)</div>
+              <div class="flex items-center gap-2 text-sm text-stone-400"><span class="iconify text-blue-500" data-icon="mdi:check"></span> Desain UI/UX (Figma)</div>
+              <div class="flex items-center gap-2 text-sm text-stone-400"><span class="iconify text-blue-500" data-icon="mdi:check"></span> Fotografi & content creation</div>
+            </div>
+            <h4 class="text-sm font-medium mb-3 text-stone-300">Prospek Karir:</h4>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1 rounded-full bg-white/5 text-xs text-stone-400 border border-white/5">Graphic Designer</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 text-xs text-stone-400 border border-white/5">Video Editor</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 text-xs text-stone-400 border border-white/5">UI/UX Designer</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 text-xs text-stone-400 border border-white/5">Content Creator</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AKL -->
+      <div id="sub-jurusan-akl" class="sub-content max-w-7xl mx-auto px-4 md:px-6 pb-24">
+        <div class="mt-8 grid lg:grid-cols-2 gap-8">
+          <div class="facility-card rounded-xl overflow-hidden border border-white/5">
+            <img src="https://picsum.photos/seed/accounting-finance/800/500.jpg" class="w-full h-64 object-cover" alt="AKL">
+          </div>
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 text-sky-400 text-xs font-medium mb-4">
+              <span class="iconify" data-icon="mdi:calculator-variant"></span> Akuntansi & Keuangan Lembaga
+            </div>
+            <h2 class="text-2xl font-semibold tracking-tight mb-4">AKL - Akuntansi dan Keuangan Lembaga</h2>
+            <p class="text-sm text-stone-400 leading-relaxed mb-6">Program keahlian yang mempersiapkan siswa menguasai akuntansi, keuangan, dan perpajakan untuk lembaga bisnis dan instansi.</p>
+            <h4 class="text-sm font-medium mb-3 text-stone-300">Kompetensi yang Dipelajari:</h4>
+            <div class="space-y-2 mb-6">
+              <div class="flex items-center gap-2 text-sm text-stone-400"><span class="iconify text-blue-500" data-icon="mdi:check"></span> Akuntansi dasar & lanjutan</div>
+              <div class="flex items-center gap-2 text-sm text-stone-400"><span class="iconify text-blue-500" data-icon="mdi:check"></span> Menggunakan software akuntansi (MYOB, Accurate)</div>
+              <div class="flex items-center gap-2 text-sm text-stone-400"><span class="iconify text-blue-500" data-icon="mdi:check"></span> Perpajakan & e-Billing</div>
+              <div class="flex items-center gap-2 text-sm text-stone-400"><span class="iconify text-blue-500" data-icon="mdi:check"></span> Perbankan & keuangan syariah</div>
+              <div class="flex items-center gap-2 text-sm text-stone-400"><span class="iconify text-blue-500" data-icon="mdi:check"></span> Pengelolaan kas & administrasi keuangan</div>
+            </div>
+            <h4 class="text-sm font-medium mb-3 text-stone-300">Prospek Karir:</h4>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1 rounded-full bg-white/5 text-xs text-stone-400 border border-white/5">Staff Akuntansi</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 text-xs text-stone-400 border border-white/5">Tax Consultant</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 text-xs text-stone-400 border border-white/5">Teller Bank</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 text-xs text-stone-400 border border-white/5">Financial Analyst</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FASILITAS ==================== -->
+    <section id="tab-fasilitas" class="page-section">
+      <div class="pt-24 pb-8 max-w-7xl mx-auto px-4 md:px-6">
+        <div class="text-xs font-medium uppercase tracking-widest text-blue-500 mb-2">Sarana & Prasarana</div>
+        <h1 class="text-3xl md:text-5xl font-semibold tracking-tight text-gradient mb-8">Fasilitas</h1>
+        <div class="flex gap-2 border-b border-white/5 overflow-x-auto pb-px">
+          <div class="sub-tab active" onclick="switchSub('fasilitas','lab')">Lab Komputer</div>
+          <div class="sub-tab" onclick="switchSub('fasilitas','perpustakaan')">Perpustakaan</div>
+          <div class="sub-tab" onclick="switchSub('fasilitas','olahraga')">Lapangan Olahraga</div>
+          <div class="sub-tab" onclick="switchSub('fasilitas','mushola')">Mushola</div>
+        </div>
+      </div>
+
+      <!-- Lab Komputer -->
+      <div id="sub-fasilitas-lab" class="sub-content active max-w-7xl mx-auto px-4 md:px-6 pb-24">
+        <div class="mt-8 grid lg:grid-cols-2 gap-8">
+          <div class="facility-card rounded-xl overflow-hidden border border-white/5">
+            <img src="lab.jpeg" class="w-full h-72 object-cover" alt="Lab Komputer">
+          </div>
+          <div>
+            <h2 class="text-2xl font-semibold tracking-tight mb-4">Laboratorium Komputer</h2>
+            <p class="text-sm text-stone-400 leading-relaxed mb-6">Dilengkapi dengan 3 ruang lab komputer modern yang masing-masing berisi 40 unit PC spesifikasi tinggi, terhubung internet fiber optic, dan dilengkapi proyektor interaktif.</p>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="glass-card rounded-lg p-4 text-center">
+                <div class="text-2xl font-semibold text-blue-500">120</div>
+                <div class="text-xs text-stone-500">Unit PC</div>
+              </div>
+              <div class="glass-card rounded-lg p-4 text-center">
+                <div class="text-2xl font-semibold text-blue-500">3</div>
+                <div class="text-xs text-stone-500">Ruang Lab</div>
+              </div>
+              <div class="glass-card rounded-lg p-4 text-center">
+                <div class="text-2xl font-semibold text-blue-500">100</div>
+                <div class="text-xs text-stone-500">Mbps Internet</div>
+              </div>
+              <div class="glass-card rounded-lg p-4 text-center">
+                <div class="text-2xl font-semibold text-blue-500">3</div>
+                <div class="text-xs text-stone-500">Proyektor Interaktif</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Perpustakaan -->
+      <div id="sub-fasilitas-perpustakaan" class="sub-content max-w-7xl mx-auto px-4 md:px-6 pb-24">
+        <div class="mt-8 grid lg:grid-cols-2 gap-8">
+          <div class="facility-card rounded-xl overflow-hidden border border-white/5">
+            <img src="https://picsum.photos/seed/library-modern/800/500.jpg" class="w-full h-72 object-cover" alt="Perpustakaan">
+          </div>
+          <div>
+            <h2 class="text-2xl font-semibold tracking-tight mb-4">Perpustakaan Digital</h2>
+            <p class="text-sm text-stone-400 leading-relaxed mb-6">Perpustakaan modern dengan koleksi fisik dan digital. Dilengkapi area baca yang nyaman, PC akses digital library, dan ruang diskusi kelompok.</p>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="glass-card rounded-lg p-4 text-center">
+                <div class="text-2xl font-semibold text-blue-500">5.000+</div>
+                <div class="text-xs text-stone-500">Koleksi Buku</div>
+              </div>
+              <div class="glass-card rounded-lg p-4 text-center">
+                <div class="text-2xl font-semibold text-blue-500">500+</div>
+                <div class="text-xs text-stone-500">E-Book</div>
+              </div>
+              <div class="glass-card rounded-lg p-4 text-center">
+                <div class="text-2xl font-semibold text-blue-500">2</div>
+                <div class="text-xs text-stone-500">Ruang Diskusi</div>
+              </div>
+              <div class="glass-card rounded-lg p-4 text-center">
+                <div class="text-2xl font-semibold text-blue-500">10</div>
+                <div class="text-xs text-stone-500">PC Digital Library</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Olahraga -->
+      <div id="sub-fasilitas-olahraga" class="sub-content max-w-7xl mx-auto px-4 md:px-6 pb-24">
+        <div class="mt-8 grid lg:grid-cols-2 gap-8">
+          <div class="facility-card rounded-xl overflow-hidden border border-white/5">
+            <img src="lapangan.jpeg" class="w-full h-72 object-cover" alt="Lapangan Olahraga">
+          </div>
+          <div>
+            <h2 class="text-2xl font-semibold tracking-tight mb-4">Lapangan Olahraga</h2>
+            <p class="text-sm text-stone-400 leading-relaxed mb-6">Fasilitas olahraga lengkap untuk menunjang kegiatan jasmani dan ekstrakurikuler olahraga. Termasuk lapangan indoor dan outdoor.</p>
+            <div class="space-y-3">
+              <div class="flex items-center gap-3 text-sm text-stone-400"><span class="iconify text-blue-500" data-icon="mdi:soccer"></span> Lapangan sepak bola mini</div>
+              <div class="flex items-center gap-3 text-sm text-stone-400"><span class="iconify text-blue-500" data-icon="mdi:basketball"></span> Lapangan basket indoor</div>
+              <div class="flex items-center gap-3 text-sm text-stone-400"><span class="iconify text-blue-500" data-icon="mdi:volleyball"></span> Lapangan voli</div>
+              <div class="flex items-center gap-3 text-sm text-stone-400"><span class="iconify text-blue-500" data-icon="mdi:badminton"></span> 2 lapangan badminton indoor</div>
+              <div class="flex items-center gap-3 text-sm text-stone-400"><span class="iconify text-blue-500" data-icon="mdi:dumbbell"></span> Ruang fitness mini</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mushola -->
+      <div id="sub-fasilitas-mushola" class="sub-content max-w-7xl mx-auto px-4 md:px-6 pb-24">
+        <div class="mt-8 grid lg:grid-cols-2 gap-8">
+          <div class="facility-card rounded-xl overflow-hidden border border-white/5">
+            <img src="musola.jpeg" class="w-full h-72 object-cover" alt="Mushola">
+          </div>
+          <div>
+            <h2 class="text-2xl font-semibold tracking-tight mb-4">Mushola Al-Ikhlas</h2>
+            <p class="text-sm text-stone-400 leading-relaxed mb-6">Mushola dua lantai yang luas dan nyaman untuk kegiatan ibadah harian, sholat berjamaah, kajian, dan program tahfidz Al-Quran.</p>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="glass-card rounded-lg p-4 text-center">
+                <div class="text-2xl font-semibold text-blue-500">500</div>
+                <div class="text-xs text-stone-500">Kapasitas Jamaah</div>
+              </div>
+              <div class="glass-card rounded-lg p-4 text-center">
+                <div class="text-2xl font-semibold text-blue-500">2</div>
+                <div class="text-xs text-stone-500">Lantai</div>
+              </div>
+              <div class="glass-card rounded-lg p-4 text-center">
+                <div class="text-2xl font-semibold text-blue-500">5</div>
+                <div class="text-xs text-stone-500">Kajian/Minggu</div>
+              </div>
+              <div class="glass-card rounded-lg p-4 text-center">
+                <div class="text-2xl font-semibold text-blue-500">3</div>
+                <div class="text-xs text-stone-500">Pengajar Tahfidz</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== INFORMASI ==================== -->
+    <section id="tab-informasi" class="page-section">
+      <div class="pt-24 pb-8 max-w-7xl mx-auto px-4 md:px-6">
+        <div class="text-xs font-medium uppercase tracking-widest text-blue-500 mb-2">Berita & Pengumuman</div>
+        <h1 class="text-3xl md:text-5xl font-semibold tracking-tight text-gradient mb-8">Informasi</h1>
+        <div class="flex gap-2 border-b border-white/5 overflow-x-auto pb-px">
+          <div class="sub-tab active" onclick="switchSub('informasi','berita')">Berita</div>
+          <div class="sub-tab" onclick="switchSub('informasi','pengumuman')">Pengumuman</div>
+          <div class="sub-tab" onclick="switchSub('informasi','kalender')">Kalender Akademik</div>
+          <div class="sub-tab" onclick="switchSub('informasi','prestasi')">Prestasi</div>
+        </div>
+      </div>
+
+      <!-- Berita -->
+      <div id="sub-informasi-berita" class="sub-content active max-w-7xl mx-auto px-4 md:px-6 pb-24">
+        <div class="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="glass-card rounded-xl overflow-hidden group cursor-pointer">
+            <div class="facility-card overflow-hidden">
+              <img src="https://picsum.photos/seed/news-lomba/600/400.jpg" class="w-full h-48 object-cover" alt="Berita">
+            </div>
+            <div class="p-5">
+              <div class="text-xs text-blue-500 font-medium mb-2">15 Januari 2025</div>
+              <h3 class="text-sm font-medium mb-2 group-hover:text-blue-400 transition-colors">Siswa TKJ Raih Juara 1 LKS Tingkat Kota Tangerang Selatan</h3>
+              <p class="text-xs text-stone-500 leading-relaxed">Muhammad Farhan, siswa kelas XII TKJ berhasil meraih juara pertama dalam Lomba Kompetensi Siswa bidang IT Networking Support...</p>
+            </div>
+          </div>
+          <div class="glass-card rounded-xl overflow-hidden group cursor-pointer">
+            <div class="facility-card overflow-hidden">
+              <img src="https://picsum.photos/seed/news-moU/600/400.jpg" class="w-full h-48 object-cover" alt="Berita">
+            </div>
+            <div class="p-5">
+              <div class="text-xs text-blue-500 font-medium mb-2">10 Januari 2025</div>
+              <h3 class="text-sm font-medium mb-2 group-hover:text-blue-400 transition-colors">Penandatanganan MoU dengan PT Telkom Indonesia</h3>
+              <p class="text-xs text-stone-500 leading-relaxed">SMK Islamiyah Ciputat resmi menandatangani kerjasama dengan PT Telkom Indonesia untuk program magang dan sertifikasi siswa...</p>
+            </div>
+          </div>
+          <div class="glass-card rounded-xl overflow-hidden group cursor-pointer">
+            <div class="facility-card overflow-hidden">
+              <img src="https://picsum.photos/seed/news-tahfidz/600/400.jpg" class="w-full h-48 object-cover" alt="Berita">
+            </div>
+            <div class="p-5">
+              <div class="text-xs text-blue-500 font-medium mb-2">5 Januari 2025</div>
+              <h3 class="text-sm font-medium mb-2 group-hover:text-blue-400 transition-colors">15 Siswa Berhasil Menyelesaikan Program Tahfidz 2 Juz</h3>
+              <p class="text-xs text-stone-500 leading-relaxed">Program tahfidz Al-Quran yang diadakan sejak tahun ajaran lalu berhasil meluluskan 15 siswa sebagai hafidz/hafidzah...</p>
+            </div>
+          </div>
+          <div class="glass-card rounded-xl overflow-hidden group cursor-pointer">
+            <div class="facility-card overflow-hidden">
+              <img src="https://picsum.photos/seed/news-workshop/600/400.jpg" class="w-full h-48 object-cover" alt="Berita">
+            </div>
+            <div class="p-5">
+              <div class="text-xs text-blue-500 font-medium mb-2">28 Desember 2024</div>
+              <h3 class="text-sm font-medium mb-2 group-hover:text-blue-400 transition-colors">Workshop AI untuk Pendidikan: Kolaborasi dengan Google</h3>
+              <p class="text-xs text-stone-500 leading-relaxed">Google for Education mengadakan workshop tentang pemanfaatan Artificial Intelligence dalam pembelajaran di sekolah...</p>
+            </div>
+          </div>
+          <div class="glass-card rounded-xl overflow-hidden group cursor-pointer">
+            <div class="facility-card overflow-hidden">
+              <img src="https://picsum.photos/seed/news-graduation/600/400.jpg" class="w-full h-48 object-cover" alt="Berita">
+            </div>
+            <div class="p-5">
+              <div class="text-xs text-blue-500 font-medium mb-2">20 Desember 2024</div>
+              <h3 class="text-sm font-medium mb-2 group-hover:text-blue-400 transition-colors">Wisuda Angkatan XIX: 98% Langsung Bekerja atau Kuliah</h3>
+              <p class="text-xs text-stone-500 leading-relaxed">Acara wisuda angkatan XIX berlangsung meriah dengan total 210 lulusan, di mana 98% langsung terserap di dunia kerja...</p>
+            </div>
+          </div>
+          <div class="glass-card rounded-xl overflow-hidden group cursor-pointer">
+            <div class="facility-card overflow-hidden">
+              <img src="https://picsum.photos/seed/news-renovation/600/400.jpg" class="w-full h-48 object-cover" alt="Berita">
+            </div>
+            <div class="p-5">
+              <div class="text-xs text-blue-500 font-medium mb-2">15 Desember 2024</div>
+              <h3 class="text-sm font-medium mb-2 group-hover:text-blue-400 transition-colors">Renovasi Lab RPL Selesai: Kini Dilengkapi iMac Studio</h3>
+              <p class="text-xs text-stone-500 leading-relaxed">Renovasi lab RPL telah selesai dengan penambahan 20 unit iMac Studio untuk mendukung pembelajaran desain dan mobile dev...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pengumuman -->
+      <div id="sub-informasi-pengumuman" class="sub-content max-w-7xl mx-auto px-4 md:px-6 pb-24">
+        <div class="mt-8 space-y-4">
+          <div class="glass-card rounded-xl p-6 flex items-start gap-4 border-l-2 border-blue-500">
+            <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center shrink-0 mt-0.5">
+              <span class="iconify text-xl text-blue-500" data-icon="mdi:bullhorn"></span>
+            </div>
+            <div>
+              <div class="flex items-center gap-3 mb-1">
+                <h3 class="text-sm font-medium">Pendaftaran PPDB 2025/2026 Dibuka</h3>
+                <span class="px-2 py-0.5 rounded-full bg-green-500/10 text-green-400 text-[10px] font-medium">BARU</span>
+              </div>
+              <p class="text-xs text-stone-500 mb-2">20 Januari 2025</p>
+              <p class="text-sm text-stone-400 leading-relaxed">Pendaftaran Peserta Didik Baru tahun ajaran 2025/2026 resmi dibuka mulai 1 Februari 2025. Pendaftaran dilakukan secara online melalui website sekolah.</p>
+            </div>
+          </div>
+          <div class="glass-card rounded-xl p-6 flex items-start gap-4 border-l-2 border-indigo-500">
+            <div class="w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center shrink-0 mt-0.5">
+              <span class="iconify text-xl text-indigo-400" data-icon="mdi:calendar-alert"></span>
+            </div>
+            <div>
+              <h3 class="text-sm font-medium mb-1">Jadwal Ujian Tengah Semester Genap</h3>
+              <p class="text-xs text-stone-500 mb-2">15 Januari 2025</p>
+              <p class="text-sm text-stone-400 leading-relaxed">UTS Semester Genap akan dilaksanakan pada tanggal 17-22 Maret 2025. Siswa diwajibkan hadir 30 menit sebelum ujian dimulai.</p>
+            </div>
+          </div>
+          <div class="glass-card rounded-xl p-6 flex items-start gap-4 border-l-2 border-cyan-500">
+            <div class="w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center shrink-0 mt-0.5">
+              <span class="iconify text-xl text-cyan-400" data-icon="mdi:file-document-edit"></span>
+            </div>
+            <div>
+              <h3 class="text-sm font-medium mb-1">Pengumpulan Rapor Semester Ganjil</h3>
+              <p class="text-xs text-stone-500 mb-2">10 Januari 2025</p>
+              <p class="text-sm text-stone-400 leading-relaxed">Rapor semester ganjil dapat diambil di ruang TU pada hari Senin-Jumat pukul 08.00-15.00 WIB. Harap membawa kartu siswa.</p>
+            </div>
+          </div>
+          <div class="glass-card rounded-xl p-6 flex items-start gap-4 border-l-2 border-sky-500">
+            <div class="w-10 h-10 rounded-lg bg-sky-500/10 flex items-center justify-center shrink-0 mt-0.5">
+              <span class="iconify text-xl text-sky-400" data-icon="mdi:account-supervisor"></span>
+            </div>
+            <div>
+              <h3 class="text-sm font-medium mb-1">Rapat Wali Murid Semester Genap</h3>
+              <p class="text-xs text-stone-500 mb-2">8 Januari 2025</p>
+              <p class="text-sm text-stone-400 leading-relaxed">Rapat wali murid akan dilaksanakan pada Sabtu, 8 Februari 2025 pukul 09.00-12.00 WIB di Aula Sekolah. Wajib hadir perwakilan wali murid.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kalender -->
+      <div id="sub-informasi-kalender" class="sub-content max-w-7xl mx-auto px-4 md:px-6 pb-24">
+        <div class="mt-8 glass-card rounded-xl p-6 md:p-8">
+          <h3 class="text-lg font-medium mb-6">Kalender Akademik Semester Genap 2024/2025</h3>
+          <div class="space-y-0">
+            <div class="flex items-center gap-4 py-4 border-b border-white/5">
+              <div class="w-20 shrink-0 text-xs font-medium text-blue-500">Jan 2025</div>
+              <div class="text-sm text-stone-400">Semester Genap dimulai (6 Jan)</div>
+            </div>
+            <div class="flex items-center gap-4 py-4 border-b border-white/5">
+              <div class="w-20 shrink-0 text-xs font-medium text-blue-500">Feb 2025</div>
+              <div class="text-sm text-stone-400">PPDB dibuka (1 Feb) | Rapat Wali Murid (8 Feb)</div>
+            </div>
+            <div class="flex items-center gap-4 py-4 border-b border-white/5">
+              <div class="w-20 shrink-0 text-xs font-medium text-blue-500">Mar 2025</div>
+              <div class="text-sm text-stone-400">UTS Semester Genap (17-22 Mar) | Isra Mi'raj</div>
+            </div>
+            <div class="flex items-center gap-4 py-4 border-b border-white/5">
+              <div class="w-20 shrink-0 text-xs font-medium text-blue-500">Apr 2025</div>
+              <div class="text-sm text-stone-400">Ramadhan 1446 H | Praktik Kerja Lapangan (PKL) dimulai</div>
+            </div>
+            <div class="flex items-center gap-4 py-4 border-b border-white/5">
+              <div class="w-20 shrink-0 text-xs font-medium text-blue-500">Mei 2025</div>
+              <div class="text-sm text-stone-400">Hari Pendidikan Nasional (2 Mei) | UAS Kelas XII (19-28 Mei)</div>
+            </div>
+            <div class="flex items-center gap-4 py-4 border-b border-white/5">
+              <div class="w-20 shrink-0 text-xs font-medium text-blue-500">Jun 2025</div>
+              <div class="text-sm text-stone-400">UAS Kelas X-XI (2-11 Jun) | Wisuda Angkatan XX | Libur Semester</div>
+            </div>
+            <div class="flex items-center gap-4 py-4">
+              <div class="w-20 shrink-0 text-xs font-medium text-blue-500">Jul 2025</div>
+              <div class="text-sm text-stone-400">Semester Ganjil 2025/2026 dimulai (14 Jul)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prestasi -->
+      <div id="sub-informasi-prestasi" class="sub-content max-w-7xl mx-auto px-4 md:px-6 pb-24">
+        <div class="mt-8 grid md:grid-cols-2 gap-6">
+          <div class="glass-card rounded-xl p-6 flex items-start gap-4">
+            <div class="w-14 h-14 rounded-xl bg-yellow-500/10 flex items-center justify-center shrink-0">
+              <span class="iconify text-3xl text-yellow-400" data-icon="mdi:trophy"></span>
+            </div>
+            <div>
+              <div class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-yellow-500/10 text-yellow-400 text-[10px] font-medium mb-2">🥇 JUARA 1</div>
+              <h4 class="text-sm font-medium mb-1">LKS IT Networking Support - Tingkat Kota</h4>
+              <p class="text-xs text-stone-500">Muhammad Farhan | TKJ XII | Januari 2025</p>
+            </div>
+          </div>
+          <div class="glass-card rounded-xl p-6 flex items-start gap-4">
+            <div class="w-14 h-14 rounded-xl bg-stone-500/10 flex items-center justify-center shrink-0">
+              <span class="iconify text-3xl text-stone-400" data-icon="mdi:medal"></span>
+            </div>
+            <div>
+              <div class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-stone-500/10 text-stone-400 text-[10px] font-medium mb-2">🥈 JUARA 2</div>
+              <h4 class="text-sm font-medium mb-1">Olimpiade Sains Nasional - Informatika</h4>
+              <p class="text-xs text-stone-500">Aisyah Putri | RPL XI | Desember 2024</p>
+            </div>
+          </div>
+          <div class="glass-card rounded-xl p-6 flex items-start gap-4">
+            <div class="w-14 h-14 rounded-xl bg-amber-700/10 flex items-center justify-center shrink-0">
+              <span class="iconify text-3xl text-amber-600" data-icon="mdi:medal"></span>
+            </div>
+            <div>
+              <div class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-700/10 text-amber-600 text-[10px] font-medium mb-2">🥉 JUARA 3</div>
+              <h4 class="text-sm font-medium mb-1">Lomba Desain Poster - Tingkat Provinsi</h4>
+              <p class="text-xs text-stone-500">Rafi Aditya | MM XII | November 2024</p>
+            </div>
+          </div>
+          <div class="glass-card rounded-xl p-6 flex items-start gap-4">
+            <div class="w-14 h-14 rounded-xl bg-yellow-500/10 flex items-center justify-center shrink-0">
+              <span class="iconify text-3xl text-yellow-400" data-icon="mdi:trophy"></span>
+            </div>
+            <div>
+              <div class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-yellow-500/10 text-yellow-400 text-[10px] font-medium mb-2">🥇 JUARA 1</div>
+              <h4 class="text-sm font-medium mb-1">Musabaqah Hifdzil Quran - Tingkat Kota</h4>
+              <p class="text-xs text-stone-500">Ahmad Rizky | XII TP | Oktober 2024</p>
+            </div>
+          </div>
+          <div class="glass-card rounded-xl p-6 flex items-start gap-4">
+            <div class="w-14 h-14 rounded-xl bg-yellow-500/10 flex items-center justify-center shrink-0">
+              <span class="iconify text-3xl text-yellow-400" data-icon="mdi:trophy"></span>
+            </div>
+            <div>
+              <div class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-yellow-500/10 text-yellow-400 text-[10px] font-medium mb-2">🥇 JUARA 1</div>
+              <h4 class="text-sm font-medium mb-1">Futsal Antar SMK Se-Kota Tangerang Selatan</h4>
+              <p class="text-xs text-stone-500">Tim Futsal Putra | September 2024</p>
+            </div>
+          </div>
+          <div class="glass-card rounded-xl p-6 flex items-start gap-4">
+            <div class="w-14 h-14 rounded-xl bg-stone-500/10 flex items-center justify-center shrink-0">
+              <span class="iconify text-3xl text-stone-400" data-icon="mdi:medal"></span>
+            </div>
+            <div>
+              <div class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-stone-500/10 text-stone-400 text-[10px] font-medium mb-2">🥈 JUARA 2</div>
+              <h4 class="text-sm font-medium mb-1">Lomba Web Design - Hackathon Nasional</h4>
+              <p class="text-xs text-stone-500">Tim RPL (3 siswa) | Agustus 2024</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== KONTAK ==================== -->
+    <section id="tab-kontak" class="page-section">
+      <div class="pt-24 pb-8 max-w-7xl mx-auto px-4 md:px-6">
+        <div class="text-xs font-medium uppercase tracking-widest text-blue-500 mb-2">Hubungi Kami</div>
+        <h1 class="text-3xl md:text-5xl font-semibold tracking-tight text-gradient mb-8">Kontak</h1>
+        <div class="flex gap-2 border-b border-white/5 overflow-x-auto pb-px">
+          <div class="sub-tab active" onclick="switchSub('kontak','alamat')">Alamat</div>
+          <div class="sub-tab" onclick="switchSub('kontak','telepon')">Telepon & Email</div>
+          <div class="sub-tab" onclick="switchSub('kontak','sosmed')">Media Sosial</div>
+        </div>
+      </div>
+
+      <!-- Alamat -->
+      <div id="sub-kontak-alamat" class="sub-content active max-w-7xl mx-auto px-4 md:px-6 pb-24">
+        <div class="mt-8 grid lg:grid-cols-2 gap-8">
+          <div class="glass-card rounded-xl overflow-hidden border border-white/5 h-[400px]">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.6675!2d106.7408!3d-6.3108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMTgnMzguOSJTIDEwNsKwNDQnMjYuOSJF!5e0!3m2!1sid!2sid!4v1234567890" width="100%" height="100%" style="border:0;filter:invert(0.9) hue-rotate(180deg) brightness(0.8) contrast(1.2);" allowfullscreen="" loading="lazy"></iframe>
+          </div>
+          <div>
+            <h2 class="text-2xl font-semibold tracking-tight mb-6">Lokasi Kami</h2>
+            <div class="space-y-6">
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center shrink-0">
+                  <span class="iconify text-xl text-blue-500" data-icon="mdi:map-marker"></span>
+                </div>
+                <div>
+                  <h4 class="text-sm font-medium mb-1">Alamat Lengkap</h4>
+                  <p class="text-sm text-stone-400 leading-relaxed">Jl. Ir. H. Juanda No. 123, Ciputat, Kec. Ciputat, Kota Tangerang Selatan, Banten 15412</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center shrink-0">
+                  <span class="iconify text-xl text-indigo-400" data-icon="mdi:clock-outline"></span>
+                </div>
+                <div>
+                  <h4 class="text-sm font-medium mb-1">Jam Operasional</h4>
+                  <p class="text-sm text-stone-400">Senin - Jumat: 07.00 - 16.00 WIB</p>
+                  <p class="text-sm text-stone-400">Sabtu: 07.00 - 12.00 WIB</p>
+                  <p class="text-sm text-stone-500">Minggu & Hari Libur: Tutup</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center shrink-0">
+                  <span class="iconify text-xl text-cyan-400" data-icon="mdi:bus"></span>
+                </div>
+                <div>
+                  <h4 class="text-sm font-medium mb-1">Akses Transportasi</h4>
+                  <p class="text-sm text-stone-400 leading-relaxed">Dekat Stasiun Sudimara (500m), Halte TransJakarta Ciputat (200m), dan berbagai jalur angkutan umum.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Form Pendaftaran -->
+        <div class="mt-12 glass-card rounded-xl p-6 md:p-8">
+          <h3 class="text-lg font-medium mb-6">Formulir Pendaftaran Online</h3>
+          <form id="registrationForm" onsubmit="handleRegistration(event)" class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs text-stone-500 mb-1.5">Nama Lengkap *</label>
+              <input type="text" required class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-stone-600 focus:outline-none focus:border-blue-500/50 transition-colors" placeholder="Masukkan nama lengkap">
+            </div>
+            <div>
+              <label class="block text-xs text-stone-500 mb-1.5">NISN</label>
+              <input type="text" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-stone-600 focus:outline-none focus:border-blue-500/50 transition-colors" placeholder="Masukkan NISN">
+            </div>
+            <div>
+              <label class="block text-xs text-stone-500 mb-1.5">Asal Sekolah *</label>
+              <input type="text" required class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-stone-600 focus:outline-none focus:border-blue-500/50 transition-colors" placeholder="SMP asal">
+            </div>
+            <div>
+              <label class="block text-xs text-stone-500 mb-1.5">Jurusan yang Dipilih *</label>
+              <select required class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500/50 transition-colors" style="background-color:#0a0a0a;">
+                <option value="" class="bg-[#0a0a0a]">Pilih Jurusan</option>
+                <option value="tkj" class="bg-[#0a0a0a]">TKJ</option>
+                <option value="rpl" class="bg-[#0a0a0a]">RPL</option>
+                <option value="mm" class="bg-[#0a0a0a]">Multimedia</option>
+                <option value="akl" class="bg-[#0a0a0a]">AKL</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs text-stone-500 mb-1.5">No. HP / WhatsApp *</label>
+              <input type="tel" required class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-stone-600 focus:outline-none focus:border-blue-500/50 transition-colors" placeholder="08xxxxxxxxxx">
+            </div>
+            <div>
+              <label class="block text-xs text-stone-500 mb-1.5">Email</label>
+              <input type="email" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-stone-600 focus:outline-none focus:border-blue-500/50 transition-colors" placeholder="email@contoh.com">
+            </div>
+            <div class="md:col-span-2">
+              <label class="block text-xs text-stone-500 mb-1.5">Alamat Lengkap *</label>
+              <textarea required rows="3" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-stone-600 focus:outline-none focus:border-blue-500/50 transition-colors resize-none" placeholder="Alamat tempat tinggal"></textarea>
+            </div>
+            <div class="md:col-span-2">
+              <button type="submit" class="shiny-btn rounded-full px-8 py-3 text-sm font-medium text-white">
+                Kirim Pendaftaran
+                <span class="iconify inline-block ml-1" data-icon="mdi:send"></span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Telepon -->
+      <div id="sub-kontak-telepon" class="sub-content max-w-7xl mx-auto px-4 md:px-6 pb-24">
+        <div class="mt-8 max-w-2xl mx-auto space-y-6">
+          <div class="glass-card rounded-xl p-6 flex items-center gap-4">
+            <div class="w-14 h-14 rounded-xl bg-green-500/10 flex items-center justify-center shrink-0">
+              <span class="iconify text-2xl text-green-400" data-icon="mdi:phone"></span>
+            </div>
+            <div>
+              <h4 class="text-sm font-medium mb-1">Telepon</h4>
+              <p class="text-sm text-stone-400">(021) 749-1234</p>
+              <p class="text-xs text-stone-500 mt-1">Senin - Jumat, 07.00 - 16.00 WIB</p>
+            </div>
+          </div>
+          <div class="glass-card rounded-xl p-6 flex items-center gap-4">
+            <div class="w-14 h-14 rounded-xl bg-emerald-500/10 flex items-center justify-center shrink-0">
+              <span class="iconify text-2xl text-emerald-400" data-icon="mdi:whatsapp"></span>
+            </div>
+            <div>
+              <h4 class="text-sm font-medium mb-1">WhatsApp</h4>
+              <p class="text-sm text-stone-400">0812-3456-7890</p>
+              <p class="text-xs text-stone-500 mt-1">Respon cepat di jam kerja</p>
+              <a href="#" class="inline-flex items-center gap-1 mt-2 text-xs text-blue-500 hover:text-blue-400 transition-colors">
+                Chat Sekarang <span class="iconify" data-icon="mdi:open-in-new"></span>
+              </a>
+            </div>
+          </div>
+          <div class="glass-card rounded-xl p-6 flex items-center gap-4">
+            <div class="w-14 h-14 rounded-xl bg-indigo-500/10 flex items-center justify-center shrink-0">
+              <span class="iconify text-2xl text-indigo-400" data-icon="mdi:fax"></span>
+            </div>
+            <div>
+              <h4 class="text-sm font-medium mb-1">Fax</h4>
+              <p class="text-sm text-stone-400">(021) 749-5678</p>
+              <p class="text-xs text-stone-500 mt-1">Tersedia 24 jam</p>
+            </div>
+          </div>
+          <div class="glass-card rounded-xl p-6 flex items-center gap-4">
+            <div class="w-14 h-14 rounded-xl bg-blue-500/10 flex items-center justify-center shrink-0">
+              <span class="iconify text-2xl text-blue-500" data-icon="mdi:email"></span>
+            </div>
+            <div>
+              <h4 class="text-sm font-medium mb-1">Email</h4>
+              <p class="text-sm text-stone-400">info@smkislamiyahciputat.sch.id</p>
+              <p class="text-xs text-stone-500 mt-1">Untuk informasi umum</p>
+            </div>
+          </div>
+          <div class="glass-card rounded-xl p-6 flex items-center gap-4">
+            <div class="w-14 h-14 rounded-xl bg-sky-500/10 flex items-center justify-center shrink-0">
+              <span class="iconify text-2xl text-sky-400" data-icon="mdi:email-outline"></span>
+            </div>
+            <div>
+              <h4 class="text-sm font-medium mb-1">Email PPDB</h4>
+              <p class="text-sm text-stone-400">ppdb@smkislamiyahciputat.sch.id</p>
+              <p class="text-xs text-stone-500 mt-1">Khusus pendaftaran siswa baru</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sosmed -->
+      <div id="sub-kontak-sosmed" class="sub-content max-w-7xl mx-auto px-4 md:px-6 pb-24">
+        <div class="mt-8 max-w-2xl mx-auto">
+          <p class="text-stone-400 text-sm leading-relaxed mb-8">Ikuti media sosial kami untuk mendapatkan informasi terbaru seputar kegiatan sekolah, pengumuman, dan konten edukatif.</p>
+          <div class="space-y-4">
+            <a href="#" class="glass-card rounded-xl p-5 flex items-center gap-4 group block">
+              <div class="w-12 h-12 rounded-xl bg-blue-600/10 flex items-center justify-center shrink-0 group-hover:bg-blue-600/20 transition-colors">
+                <span class="iconify text-2xl text-blue-500" data-icon="mdi:facebook"></span>
+              </div>
+              <div class="flex-1">
+                <h4 class="text-sm font-medium">Facebook</h4>
+                <p class="text-xs text-stone-500">SMK Islamiyah Ciputat Official</p>
+              </div>
+              <span class="iconify text-stone-600 group-hover:text-white transition-colors" data-icon="mdi:arrow-right"></span>
+            </a>
+            <a href="#" class="glass-card rounded-xl p-5 flex items-center gap-4 group block">
+              <div class="w-12 h-12 rounded-xl bg-pink-500/10 flex items-center justify-center shrink-0 group-hover:bg-pink-500/20 transition-colors">
+                <span class="iconify text-2xl text-pink-500" data-icon="mdi:instagram"></span>
+              </div>
+              <div class="flex-1">
+                <h4 class="text-sm font-medium">Instagram</h4>
+                <p class="text-xs text-stone-500">@smkislamiyah_ciputat</p>
+              </div>
+              <span class="iconify text-stone-600 group-hover:text-white transition-colors" data-icon="mdi:arrow-right"></span>
+            </a>
+            <a href="#" class="glass-card rounded-xl p-5 flex items-center gap-4 group block">
+              <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center shrink-0 group-hover:bg-red-500/20 transition-colors">
+                <span class="iconify text-2xl text-red-500" data-icon="mdi:youtube"></span>
+              </div>
+              <div class="flex-1">
+                <h4 class="text-sm font-medium">YouTube</h4>
+                <p class="text-xs text-stone-500">SMK Islamiyah Ciputat Channel</p>
+              </div>
+              <span class="iconify text-stone-600 group-hover:text-white transition-colors" data-icon="mdi:arrow-right"></span>
+            </a>
+            <a href="#" class="glass-card rounded-xl p-5 flex items-center gap-4 group block">
+              <div class="w-12 h-12 rounded-xl bg-sky-500/10 flex items-center justify-center shrink-0 group-hover:bg-sky-500/20 transition-colors">
+                <span class="iconify text-2xl text-sky-400" data-icon="mdi:twitter"></span>
+              </div>
+              <div class="flex-1">
+                <h4 class="text-sm font-medium">Twitter / X</h4>
+                <p class="text-xs text-stone-500">@smk_icp</p>
+              </div>
+              <span class="iconify text-stone-600 group-hover:text-white transition-colors" data-icon="mdi:arrow-right"></span>
+            </a>
+            <a href="#" class="glass-card rounded-xl p-5 flex items-center gap-4 group block">
+              <div class="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center shrink-0 group-hover:bg-green-500/20 transition-colors">
+                <span class="iconify text-2xl text-green-500" data-icon="mdi:whatsapp"></span>
+              </div>
+              <div class="flex-1">
+                <h4 class="text-sm font-medium">Grup WhatsApp Wali Murid</h4>
+                <p class="text-xs text-stone-500">Komunikasi resmi wali murid & sekolah</p>
+              </div>
+              <span class="iconify text-stone-600 group-hover:text-white transition-colors" data-icon="mdi:arrow-right"></span>
+            </a>
+            <a href="#" class="glass-card rounded-xl p-5 flex items-center gap-4 group block">
+              <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center shrink-0 group-hover:bg-blue-500/20 transition-colors">
+                <span class="iconify text-2xl text-blue-400" data-icon="mdi:linkedin"></span>
+              </div>
+              <div class="flex-1">
+                <h4 class="text-sm font-medium">LinkedIn</h4>
+                <p class="text-xs text-stone-500">SMK Islamiyah Ciputat</p>
+              </div>
+              <span class="iconify text-stone-600 group-hover:text-white transition-colors" data-icon="mdi:arrow-right"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="relative z-10 border-t border-white/5" style="background:rgba(5,5,5,0.9);">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-12">
+      <div class="grid md:grid-cols-4 gap-8 mb-8">
+        <div class="md:col-span-2">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center">
+              <span class="iconify text-white text-xl" data-icon="mdi:school"></span>
+            </div>
+            <div>
+              <div class="text-sm font-semibold">SMK Islamiyah Ciputat</div>
+              <div class="text-[11px] text-stone-500">Terakreditasi A</div>
+            </div>
+          </div>
+          <p class="text-sm text-stone-500 leading-relaxed max-w-sm mb-4">Mencetak generasi unggul yang berilmu, berakhlak mulia, dan berdaya saing tinggi. Jl. Ir. H. Juanda No. 123, Ciputat, Tangerang Selatan.</p>
+          <div class="flex items-center gap-3">
+            <a href="#" class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-stone-500 hover:text-white hover:bg-white/10 transition-all">
+              <span class="iconify text-sm" data-icon="mdi:facebook"></span>
+            </a>
+            <a href="#" class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-stone-500 hover:text-white hover:bg-white/10 transition-all">
+              <span class="iconify text-sm" data-icon="mdi:instagram"></span>
+            </a>
+            <a href="#" class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-stone-500 hover:text-white hover:bg-white/10 transition-all">
+              <span class="iconify text-sm" data-icon="mdi:youtube"></span>
+            </a>
+            <a href="#" class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-stone-500 hover:text-white hover:bg-white/10 transition-all">
+              <span class="iconify text-sm" data-icon="mdi:twitter"></span>
+            </a>
+          </div>
+        </div>
+        <div>
+          <h4 class="text-xs font-medium uppercase tracking-wider text-stone-500 mb-4">Navigasi</h4>
+          <ul class="space-y-2">
+            <li><a class="text-sm text-stone-400 hover:text-white transition-colors cursor-pointer" onclick="switchTab('beranda')">Beranda</a></li>
+            <li><a class="text-sm text-stone-400 hover:text-white transition-colors cursor-pointer" onclick="switchTab('profil','visi-misi')">Profil</a></li>
+            <li><a class="text-sm text-stone-400 hover:text-white transition-colors cursor-pointer" onclick="switchTab('jurusan','tkj')">Jurusan</a></li>
+            <li><a class="text-sm text-stone-400 hover:text-white transition-colors cursor-pointer" onclick="switchTab('fasilitas','lab')">Fasilitas</a></li>
+            <li><a class="text-sm text-stone-400 hover:text-white transition-colors cursor-pointer" onclick="switchTab('informasi','berita')">Informasi</a></li>
+            <li><a class="text-sm text-stone-400 hover:text-white transition-colors cursor-pointer" onclick="switchTab('kontak','alamat')">Kontak</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-xs font-medium uppercase tracking-wider text-stone-500 mb-4">Kontak</h4>
+          <ul class="space-y-2">
+            <li class="flex items-center gap-2 text-sm text-stone-400"><span class="iconify text-xs text-stone-600" data-icon="mdi:phone"></span> (021) 749-1234</li>
+            <li class="flex items-center gap-2 text-sm text-stone-400"><span class="iconify text-xs text-stone-600" data-icon="mdi:email"></span> info@smkislamiyahciputat.sch.id</li>
+            <li class="flex items-center gap-2 text-sm text-stone-400"><span class="iconify text-xs text-stone-600" data-icon="mdi:whatsapp"></span> 0812-3456-7890</li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-white/5 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-xs text-stone-600">&copy; 2025 SMK Islamiyah Ciputat. All rights reserved.</p>
+        <p class="text-xs text-stone-600">Dibuat dengan <span class="text-blue-500">♥</span> untuk pendidikan Indonesia</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const tabSubDefaults = {
+      profil: 'visi-misi',
+      jurusan: 'tkj',
+      fasilitas: 'lab',
+      informasi: 'berita',
+      kontak: 'alamat'
+    };
+
+    function switchTab(tab, sub) {
+      document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
+      const target = document.getElementById('tab-' + tab);
+      if (target) target.classList.add('active');
+
+      document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-tab').forEach(el => {
+        const t = el.textContent.trim().toLowerCase();
+        if ((tab === 'beranda' && t === 'beranda') ||
+            (tab === 'profil' && t.startsWith('profil')) ||
+            (tab === 'jurusan' && t.startsWith('jurusan')) ||
+            (tab === 'fasilitas' && t.startsWith('fasilitas')) ||
+            (tab === 'informasi' && t.startsWith('informasi')) ||
+            (tab === 'kontak' && t.startsWith('kontak'))) {
+          el.classList.add('active');
+        }
+      });
+
+      if (sub) {
+        switchSub(tab, sub);
+      } else if (tabSubDefaults[tab]) {
+        switchSub(tab, tabSubDefaults[tab]);
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function switchSub(tab, sub) {
+      document.querySelectorAll('#tab-' + tab + ' .sub-content').forEach(el => el.classList.remove('active'));
+      const target = document.getElementById('sub-' + tab + '-' + sub);
+      if (target) target.classList.add('active');
+
+      document.querySelectorAll('#tab-' + tab + ' .sub-tab').forEach(el => {
+        el.classList.remove('active');
+        if (el.textContent.trim().toLowerCase().replace(/[^a-z0-9]/g, '').includes(sub)) {
+          el.classList.add('active');
+        }
+      });
+    }
+
+    function toggleMobile() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    function handleRegistration(e) {
+      e.preventDefault();
+      showToast('✅ Pendaftaran berhasil dikirim! Tim kami akan menghubungi Anda.');
+      e.target.reset();
+    }
+
+    function animateCounter(elementId, target, suffix = '') {
+      const el = document.getElementById(elementId);
+      if (!el) return;
+      let current = 0;
+      const increment = target / 60;
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        el.textContent = Math.floor(current).toLocaleString('id-ID') + suffix;
+      }, 20);
+    }
+
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter('stat1', 1250, '+');
+          animateCounter('stat2', 65, '+');
+          animateCounter('stat3', 4, '');
+          animateCounter('stat4', 98, '%');
+          statsObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.5 });
+
+    const stat1 = document.getElementById('stat1');
+    if (stat1) statsObserver.observe(stat1.closest('.grid'));
+  </script>
+
+</body>
+</html>
